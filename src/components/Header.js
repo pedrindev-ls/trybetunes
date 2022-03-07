@@ -27,17 +27,19 @@ class Header extends Component {
           {!user.name
             ? 'Carregando...' : <p data-testid="header-user-name">{user.name}</p>}
         </header>
-        <Link to="/search" data-testid="link-to-search">
-          <button type="button">
-            Pesquisar
-          </button>
-        </Link>
-        <Link to="/favorites" data-testid="link-to-favorites">
-          <button type="button">Favoritos</button>
-        </Link>
-        <Link to="/profile" data-testid="link-to-profile">
-          <button type="button">Perfil</button>
-        </Link>
+        <nav>
+          <Link to="/search" data-testid="link-to-search">
+            <button type="button">
+              Pesquisar
+            </button>
+          </Link>
+          <Link to="/favorites" data-testid="link-to-favorites">
+            <button type="button">Favoritos</button>
+          </Link>
+          <Link to="/profile" data-testid="link-to-profile">
+            <button type="button">Perfil</button>
+          </Link>
+        </nav>
       </div>
     );
   }
