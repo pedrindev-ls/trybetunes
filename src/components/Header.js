@@ -22,7 +22,11 @@ class Header extends Component {
   render() {
     const { user } = this.state;
     return (
-      <header data-testid="header-component">
+      <div>
+        <header data-testid="header-component">
+          {!user.name
+            ? 'Carregando...' : <p data-testid="header-user-name">{user.name}</p>}
+        </header>
         <Link to="/search" data-testid="link-to-search">
           <button type="button">
             Pesquisar
@@ -34,8 +38,7 @@ class Header extends Component {
         <Link to="/profile" data-testid="link-to-profile">
           <button type="button">Perfil</button>
         </Link>
-        {!user.name ? 'Carregando...' : <p data-testid="header-user-name">{user.name}</p>}
-      </header>
+      </div>
     );
   }
 }
