@@ -15,14 +15,6 @@ class Login extends Component {
     };
   }
 
-  // componentWillUnmount() {
-
-  // }
-  // goToSearch = () => {
-  //   const { userDone } = this.state;
-  //   return userDone ? <Redirect to="/search" /> : '';
-  // }
-
   handleClick = async () => {
     const { user } = this.state;
     this.setState({ loading: true });
