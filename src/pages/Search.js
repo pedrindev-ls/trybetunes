@@ -35,6 +35,7 @@ class Search extends Component {
       albunsFound: albuns,
       artistFound: true,
     });
+    console.log(albuns);
   }
 
   validateButton = () => {
