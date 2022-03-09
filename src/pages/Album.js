@@ -26,7 +26,6 @@ class Album extends Component {
   arrayToTracks = (array) => {
     const musics = array.filter((obj) => obj.kind === 'song');
     this.setState({ completeAlbum: musics });
-    console.log(musics);
   }
 
   render() {
