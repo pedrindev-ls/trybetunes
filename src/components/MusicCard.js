@@ -9,31 +9,30 @@ class MusicCard extends Component {
 
     this.state = {
       loading: false,
+      // favorite: false,
       musicChecked: [],
     };
   }
 
-  savingMusics = async (mark, music) => {
-    this.setState({ loading: true });
-    if (mark) {
-      await addSong({ trackId: music });
-      this.setState({ loading: false });
-    } else if (!mark) {
-      await removeSong({ trackId: music });
-      this.setState({ loading: false });
-    }
-    this.checking(music);
+  componentDidMount() {
+    this.takingStorage();
+  }
+
+  savingMusics = (mark, music) => {
+    this.setState({ loading: true }, async () => {
+      if (mark) {
+        await addSong(music);
+        this.setState({ loading: false });
+      } else if (!mark) {
+        await removeSong(music);
+        this.setState({ loading: false });
+      }
+    });
   }
 
   takingStorage = async () => {
     const favMusic = await getFavoriteSongs();
     this.setState({ musicChecked: favMusic });
-  }
-
-  checking = async (music) => {
-    await this.takingStorage();
-    const { musicChecked } = this.state;
-    return musicChecked.some((element) => element.trackId === music);
   }
 
   render() {

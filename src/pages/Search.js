@@ -21,19 +21,20 @@ class Search extends Component {
     this.setState({ [name]: value }, this.validateButton);
   }
 
-  confirmedSearch = async () => {
+  confirmedSearch = () => {
     const { search } = this.state;
     const searched = search;
     this.setState({
       loading: true,
       search: '',
       artistFoundName: searched,
-    });
-    const albuns = await searchAlbumsAPI(searched);
-    this.setState({
-      loading: false,
-      albunsFound: albuns,
-      artistFound: true,
+    }, async () => {
+      const albuns = await searchAlbumsAPI(searched);
+      this.setState({
+        loading: false,
+        albunsFound: albuns,
+        artistFound: true,
+      });
     });
     console.log(albuns);
   }
