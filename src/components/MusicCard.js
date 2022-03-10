@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
+import Input from './Input';
 
 class MusicCard extends Component {
   constructor() {
@@ -12,17 +13,16 @@ class MusicCard extends Component {
     };
   }
 
-  savingMusics = async ({ target }) => {
+  savingMusics = async (mark, music) => {
     this.setState({ loading: true });
-    const { value, checked } = target;
-    if (checked) {
-      await addSong({ trackId: value });
+    if (mark) {
+      await addSong({ trackId: music });
       this.setState({ loading: false });
-    } else if (!checked) {
-      await removeSong({ trackId: value });
+    } else if (!mark) {
+      await removeSong({ trackId: music });
       this.setState({ loading: false });
     }
-    this.checking(value);
+    this.checking(music);
   }
 
   takingStorage = async () => {
@@ -33,7 +33,7 @@ class MusicCard extends Component {
   checking = async (music) => {
     await this.takingStorage();
     const { musicChecked } = this.state;
-    musicChecked.forEach((element) => element.trackId === music);
+    return musicChecked.some((element) => element.trackId === music);
   }
 
   render() {
@@ -52,17 +52,10 @@ class MusicCard extends Component {
                 <code>audio</code>
                 .
               </audio>
-              <label htmlFor="favorite">
-                <input
-                  type="checkbox"
-                  id="favorite"
-                  name="favorite"
-                  data-testid={ `checkbox-music-${music.trackId}` }
-                  value={ music.trackId }
-                  onChange={ this.savingMusics }
-                  // checked={ this.checking(music.trackId) }
-                />
-              </label>
+              <Input
+                music={ music }
+                savingMusics={ this.savingMusics }
+              />
             </div>))}
         </div>
       );
