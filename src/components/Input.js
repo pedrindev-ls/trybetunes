@@ -13,7 +13,6 @@ class Input extends Component {
 
   async componentDidMount() {
     const favs = await getFavoriteSongs();
-    console.log(favs);
     const { music } = this.props;
     favs.forEach((element) => {
       if (+element.trackId === music.trackId) {
@@ -25,7 +24,9 @@ class Input extends Component {
   onInputChange = ({ target }) => {
     const { savingMusics } = this.props;
     const { name, checked, value } = target;
-    this.setState({ [name]: checked }, () => savingMusics(checked, value));
+    savingMusics(checked, value);
+    // console.log(checked, name);
+    this.setState({ [name]: checked });
   }
 
   render() {
