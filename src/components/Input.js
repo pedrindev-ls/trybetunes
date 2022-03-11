@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Input extends Component {
   constructor(props) {
@@ -11,8 +10,12 @@ class Input extends Component {
     };
   }
 
-  favoriting = async () => {
-    const favs = await getFavoriteSongs();
+  componentDidMount() {
+    this.favoriting();
+  }
+
+  favoriting = () => {
+    const { favs } = this.props;
     const { music } = this.props;
     favs.forEach((element) => {
       if (element.trackId === music.trackId) {
@@ -21,27 +24,15 @@ class Input extends Component {
     });
   };
 
-  // async componentDidMount() {
-  //   const favs = await getFavoriteSongs();
-  //   const { music } = this.props;
-  //   favs.forEach((element) => {
-  //     if (element.trackId === music.trackId) {
-  //       this.setState({ favorite: true });
-  //     }
-  //   });
-  // }
-
   onInputChange = ({ target }) => {
     const { savingMusics, music } = this.props;
     const { name, checked } = target;
-    this.setState({ [name]: checked });
-    savingMusics(checked, music);
+    this.setState({ [name]: checked }, () => savingMusics(checked, music));
   }
 
   render() {
     const { favorite } = this.state;
     const { music } = this.props;
-    this.favoriting();
     return (
       <label htmlFor="favorite">
         <input

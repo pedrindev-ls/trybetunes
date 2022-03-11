@@ -22,11 +22,11 @@ class MusicCard extends Component {
     this.setState({ loading: true }, async () => {
       if (mark) {
         await addSong(music);
-        this.setState({ loading: false });
       } else if (!mark) {
         await removeSong(music);
-        this.setState({ loading: false });
       }
+      await this.takingStorage();
+      this.setState({ loading: false });
     });
   }
 
@@ -37,7 +37,7 @@ class MusicCard extends Component {
 
   render() {
     const { musics } = this.props;
-    const { loading } = this.state;
+    const { loading, musicChecked } = this.state;
     return loading ? <p>Carregando...</p>
       : (
         <div>
@@ -54,6 +54,7 @@ class MusicCard extends Component {
               <Input
                 music={ music }
                 savingMusics={ this.savingMusics }
+                favs={ musicChecked }
               />
             </div>))}
         </div>
