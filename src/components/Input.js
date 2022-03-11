@@ -15,10 +15,10 @@ class Input extends Component {
   }
 
   favoriting = () => {
-    const { favs } = this.props;
-    const { music } = this.props;
+    const { favs, music } = this.props;
     favs.forEach((element) => {
       if (element.trackId === music.trackId) {
+        console.log('Entrou');
         this.setState({ favorite: true });
       }
     });

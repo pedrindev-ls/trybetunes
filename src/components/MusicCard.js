@@ -8,14 +8,15 @@ class MusicCard extends Component {
     super();
 
     this.state = {
-      loading: false,
+      loading: true,
       // favorite: false,
       musicChecked: [],
     };
   }
 
-  componentDidMount() {
-    this.takingStorage();
+  async componentDidMount() {
+    await this.takingStorage();
+    this.setState({ loading: false });
   }
 
   savingMusics = (mark, music) => {
